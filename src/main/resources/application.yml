@@ -1,0 +1,126 @@
+# springboot-devtools
+server:
+  port: 8080
+#  context-path: /springboot #工程名称,访问路径http://localhost:8080/springboot/indexjsp;不配置时http://localhost:8080/indexjsp
+  
+
+debug: true
+
+# ================================================
+#                   FreeMarker配置
+#spring.freemarker.prefix: 
+#spring.freemarker.allow-request-override=false
+#spring.freemarker.check-template-location=true
+#spring.freemarker.expose-request-attributes=false
+#spring.freemarker.expose-session-attributes=false
+#spring.freemarker.expose-spring-macro-helpers=false
+#spring.freemarker.request-context-attribute=
+#spring.freemarker.template-loader-path=classpath:/templates/
+#spring.freemarker.view-names=
+# ================================================
+spring:
+# ================================================
+#                   freemarker: 配置
+# ================================================  
+  freemarker:
+    enabled: true
+    cache: false # 关闭缓存 # 是否开启模板缓存
+    allow-request-override: false
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html; charset=utf-8 # 编码格式
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    suffix: .ftl # 后缀设置 默认为 .ftl
+    
+
+  mvc:
+    view:
+      prefix: /WEB-INF/JSP/
+      suffix: .jsp
+# ================================================
+#                   maile: 配置
+# ================================================   
+  mail:
+    host: smtp.163.com
+    username: 13103843391@163.com 
+    password: qq1039755127#需要填写授权码否则mail发送失败.#此处登入用的密码是网易的第三方授权码,不是邮箱密码.在邮箱163邮箱页面上更改授权码.(设置-->客户端授权密码-->重置授权码-->手机短信验证)
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+# ================================================
+#                   datasource: 配置
+# ================================================        
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: 
+    driver-class-name: com.mysql.jdbc.Driver
+    tomcat:
+      max-active: 20
+      max-idle: 8
+      min-idle: 8
+      initial-size: 10
+# ================================================
+#                   jpa:配置
+# ================================================    
+  jpa:
+    database: mysql
+    show-sql: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+# ================================================
+#                   redis:配置
+# ================================================   
+  redis:  # 内存数据库的配置...
+    host: 192.168.1.100
+    port: 6397
+    password: 
+    pool:
+      max-active: 8
+      max-wait: 1
+      max-idle: 0
+      min-idle: 0
+    timeout: 0
+    
+
+# ================================================
+#                   Thymeleaf:配置
+# ================================================
+  thymeleaf:
+    enabled: true # 是否启用thymeleaf模板解析
+    cache: false # 是否开启模板缓存（建议：开发环境下设置为false，生产环境设置为true）
+    check-template-location: true # Check that the templates location exists.
+    content-type: text/html; charset=utf-8 # 模板的媒体类型设置，默认为text/html
+    encoding: UTF-8 # 模板的编码设置，默认UTF-8
+    prefix: classpath:/templates/ # 前缀设置，SpringBoot默认模板放置在classpath:/template/目录下
+    suffix: .html # 后缀设置，默认为.html
+
+#spring.thymeleaf.view-names=  # 设置可以被解析的视图，以逗号,分隔
+#spring.thymeleaf.excluded-view-names=  # 排除不需要被解析视图，以逗号,分隔
+#spring.thymeleaf.mode=HTML5  # 模板模式设置，默认为HTML5
+# 模板在模板链中被解析的顺序
+#spring.thymeleaf.template-resolver-order=
+
+
+
+spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQLInnoDBDialect
+
+
+
+
+
+
+
+
+
+
+    
+    
+      
+      

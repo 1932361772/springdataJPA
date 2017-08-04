@@ -9,13 +9,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserSpringJpa {
 	@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@Column 
 	private String username;
 	@Column
 	private String phone;
+	
 
 	public Integer getId() {
 		return id;

@@ -1,5 +1,6 @@
 package cn.itmuch;
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -49,11 +50,11 @@ public class App {
 		UserRepository userRepository = context.getBean(UserRepository.class);
 
 		// 保存操作:
-		 UserSpringDataJpa user = new UserSpringDataJpa();
-		 user.setPhone("10010");
-		 user.setUsername("z");
-		 user.setStatus(2);
-		 repository.save(user);
+//		 UserSpringDataJpa user = new UserSpringDataJpa();
+//		 user.setPhone("133131");
+//		 user.setUsername("a");
+//		 user.setStatus(1);
+//		 repository.save(user);
 
 		// -------------------------------
 		// 查询
@@ -88,11 +89,44 @@ public class App {
 		 * public void accept(UserSpringDataJpa u) { System.out.println(u); }
 		 * });//与下面的等价.s
 		 */// 查询结果可以多条,也可以查询一条.
-		userRe.findByStatus(2).forEach(System.out::println);//// 与上面的等价.
-
-		// 可以多个字段一起查询.
-//		System.err.println(userRe.findByUsernameAndPhone("zhangsanzh", phone));
-
+//		userRe.findByStatus(2).forEach(System.out::println);//// 与上面的等价.
+		
+//		可以多个字段一起查询.只能返回一个结果.尽量不用.用下面的一个返回list的方法.
+//		System.err.println(userRe.findByUsernameAndPhone("z","10010"));
+//		System.err.println(userRe.findByUsernameOrPhone("zhagnsanzh7", "10010"));
+		
+//		11:19秒---详解2--------------------------------------
+//		userRe.findByPhoneIn(Arrays.asList("10010","10011","10012")).forEach(System.out::println);;
+		
+		
+//		userRe.findByIdBetween(1, 10).forEach(System.out::println);
+		
+//		userRe.findByPhoneInOrderByUsernameDesc(Arrays.asList("10010","10011","10012","12312345691")).forEach(System.out::println);
+		
+//		userRe.findByIdLessThan(10).forEach(System.out::println);
+//		userRe.findByIdLessThanEqual(10).forEach(System.out::println);
+		
+//		userRe.findByPhoneIsNull().forEach(System.out::println);
+//		userRe.findByPhoneIsNotNull().forEach(System.out::println);
+//		 userRe.findByPhoneNotNull().forEach(System.out::println);
+//		userRe.findByPhoneNot("10010").forEach(System.out::println);//常用
+//		userRe.findByPhoneNotIn(Arrays.asList("10010","10012")).forEach(System.out::println);
+		
+//		userRe.findByPhoneLike("10010").forEach(System.out::println);
+//		userRe.findByPhoneContains("1001").forEach(System.out::println);
+//		userRe.findByPhoneContaining("00").forEach(System.out::println);
+//		userRe.findByPhoneStartingWith("10").forEach(System.out::println);
+//		userRe.findByPhoneEndingWith("91").forEach(System.out::println);
+		
+		//queryBy ,readBy,getBy,遵循的规则和find一样.
+		
+//		userRe.queryByPhoneNotIn(Arrays.asList("10010","10012")).forEach(System.out::println);
+//		userRe.readByPhoneNotIn(Arrays.asList("10010","10012")).forEach(System.out::println);
+//		userRe.getByPhoneNotIn(Arrays.asList("10010","10012")).forEach(System.out::println);
+		
+//		userRe.findTop3ByPhoneIsNotNull().forEach(System.out::println);
+//		userRe.findFirstByPhoneIsNotNull().forEach(System.out::println);
+		userRe.findTop3ByPhoneIsNotNullOrderByIdDesc().forEach(System.out::println);
 		
 		
 	}

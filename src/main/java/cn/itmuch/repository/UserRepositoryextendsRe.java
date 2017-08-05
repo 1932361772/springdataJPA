@@ -2,7 +2,11 @@ package cn.itmuch.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.itmuch.entity.UserSpringDataJpa;
 //Repository一般不使用这接口,因为没有任何方法.
@@ -58,16 +62,40 @@ public interface UserRepositoryextendsRe extends Repository<UserSpringDataJpa,In
 	public List<UserSpringDataJpa> findFirstByPhoneIsNotNull() ;//Top3
 	public List<UserSpringDataJpa> findTop3ByPhoneIsNotNullOrderByIdDesc() ;//Top3 不写Desc默认ASC从小到大
 	
+//-----------------------------jpql语句查询-------------------------------------------------------------------------
+	@Query("select u from UserSpringDataJpa u ")
+	public List<UserSpringDataJpa> list() ;
+	
+	@Query("select u from UserSpringDataJpa u where u.phone=?1")
+	public UserSpringDataJpa takeByPhone(String phone) ;//返回单个对象.
 	
 	
+	@Query("select u from UserSpringDataJpa u where u.phone=?1 or username=?2")
+	public List<UserSpringDataJpa> takeByPhone(String phone,String username) ;//建议写这种,位置对应好即可,简单
+	
+	@Query("select u from UserSpringDataJpa u where u.phone=:phone or username=:name")
+	public List<UserSpringDataJpa> takeByPhoneOrUsername(@Param("name")String username,@Param("phone")String phone) ;//返回单个对象.
 	
 	
+	@Query("select u from UserSpringDataJpa u where u.phone=?1 or username=?2 order by id desc")
+	public List<UserSpringDataJpa> takeByPhoneSort(String phone,String username) ;//建议写这种,位置对应好即可,简单
 	
 	
+	@Query("update UserSpringDataJpa u set u.status=3 where id=24")
+	@Modifying
+	@Transactional
+	public Integer UpdateUser() ;
 	
 	
+	@Query("update UserSpringDataJpa u set u.status=?2 where id=?1")//写数字时.注意对应关系.------------------------
+	@Modifying
+	@Transactional
+	public Integer UpdateUser(Integer id,Integer status) ;//位适应习惯,改变了参数的顺序.注意对应关系.
 	
-	
+	@Query("delete from UserSpringDataJpa u where u.username=?1")
+	@Modifying
+	@Transactional
+	public Integer deleteByUsername(String username) ;
 	
 	
 	

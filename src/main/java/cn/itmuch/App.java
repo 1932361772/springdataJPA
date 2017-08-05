@@ -11,6 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.RepositoryDefinition;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import cn.itmuch.entity.UserSpringDataJpa;
 import cn.itmuch.repository.UserRepository;
@@ -23,6 +24,7 @@ import cn.itmuch.repository.UserRepositoryextendsjparepository;
  * Hello world!
  *
  */
+@EnableTransactionManagement
 @ComponentScan
 @EnableJpaRepositories
 public class App {
@@ -50,11 +52,11 @@ public class App {
 		UserRepository userRepository = context.getBean(UserRepository.class);
 
 		// 保存操作:
-//		 UserSpringDataJpa user = new UserSpringDataJpa();
-//		 user.setPhone("133131");
-//		 user.setUsername("a");
-//		 user.setStatus(1);
-//		 repository.save(user);
+		 UserSpringDataJpa user = new UserSpringDataJpa();
+		 user.setPhone("133131");
+		 user.setUsername("a");
+		 user.setStatus(1);
+		 repository.save(user);
 
 		// -------------------------------
 		// 查询
@@ -126,7 +128,95 @@ public class App {
 		
 //		userRe.findTop3ByPhoneIsNotNull().forEach(System.out::println);
 //		userRe.findFirstByPhoneIsNotNull().forEach(System.out::println);
-		userRe.findTop3ByPhoneIsNotNullOrderByIdDesc().forEach(System.out::println);
+//		userRe.findTop3ByPhoneIsNotNullOrderByIdDesc().forEach(System.out::println);
+	
+		
+		//-----------------------------jpql语句查询-------------------------------------------------------------------------
+//	userRe.list().forEach(System.out::println);	
+		
+//		System.out.println(userRe.takeByPhone("10012"));//只能有一个返回值.
+	
+//		System.out.println(userRe.takeByPhone("10012","zhagnsanzh22"));
+		
+//		userRe.takeByPhone("10012","zhagnsanzh").forEach(System.out::println);
+//		userRe.takeByPhoneOrUsername("zhagnsanzh","10012").forEach(System.out::println);
+//		userRe.takeByPhoneSort("10012", "zhagnsanzh").forEach(System.out::println);
+		
+//		userRe.UpdateUser();//更新，
+//		userRe.UpdateUser(4,2);//更新，
+//		userRe.UpdateUser(3, 2);
+		
+//		userRe.deleteByUsername("zhagnsanzh");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}

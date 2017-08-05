@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table//(name="userspringData")
+@Entity//(name="myuser")可以指定实体名称和类名不一致.没必要.用缺省值就好
+@Table//(name="userspringData")用缺省值就好
 public class UserSpringDataJpa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,11 +1,24 @@
 package cn.itmuch.repository;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+import java.util.stream.Stream;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.itmuch.entity.UserSpringDataJpa;
@@ -96,6 +109,93 @@ public interface UserRepositoryextendsRe extends Repository<UserSpringDataJpa,In
 	@Modifying
 	@Transactional
 	public Integer deleteByUsername(String username) ;
+	
+//	springdatajpa 详解(四): 排序,分页,方法的返回值--------------------------------------------
+//	三种排序方法 
+	/*
+//		1,自己在名称上加OrderBy ,
+ * 		2,在jpql语句里面加Order By ,
+ * 			3,使用参数.new Sort(new Order(Direction.ASC,"status"),new Order(Direction.DESC,"username"))
+	 * 推荐使用第三种.
+	 */
+	public List<UserSpringDataJpa> queryByStatusOrderByUsername(Integer status) ;
+	public List<UserSpringDataJpa> queryByStatusOrderByUsernameDesc(Integer status) ;
+	
+	@Query("select u from UserSpringDataJpa u where u.status=?1 order by u.username")
+	public List<UserSpringDataJpa> queryByStatus(Integer status) ;
+//	
+	public List<UserSpringDataJpa> queryByStatus(Integer status,Sort sort) ;
+	
+	@Query("select u from UserSpringDataJpa u where u.status=?1")
+	public List<UserSpringDataJpa> queryAll(Integer status,Sort sort) ;//	可以根据多个条件排序.根据status升序,根据username降序.
+	@Query("select u from UserSpringDataJpa u")
+	public List<UserSpringDataJpa> queryAll(Sort sort) ;//	可以根据多个条件排序.根据status升序,根据username降序.
+
+/*
+ * 返回值是Page的需要注意以下事项:
+ * 		参数必须要有Pageable
+ * 		Pageable不能和Sort同时使用.想要排序直接用pageable.
+ */
+//	分页...排序..............
+	public Page<UserSpringDataJpa> getByStatus(Integer status,Pageable pageable) ;
+//	分页........排序..不支持这种方式........
+//	public Page<UserSpringDataJpa> getByStatus(Integer status,Sort sort,Pageable pageable) ;
+	
+	@Query("select u from UserSpringDataJpa u order by u.status desc")//当次处添加排序,后面Pageable还有排序时会语句中的排序为大循环,pageable为小循环.
+	public Page<UserSpringDataJpa> findAll(Pageable pageable) ;
+	
+	
+	@Query("select u from UserSpringDataJpa u order by u.status desc")//当次处添加排序,后面Pageable还有排序时会语句中的排序为大循环,pageable为小循环.
+	public Slice<UserSpringDataJpa> getAll(Pageable pageable) ;//page 在查询的基础上有查询的总记录数.slice只能查询分页后的内容.
+	
+	
+	//方法的返回值有哪些
+	/*
+	 * Entity
+	 * List
+	 * Page
+	 * Slice
+	 * set
+	 * Collection
+	 * Array[]
+	 * Stream
+	 * Optional
+	 * Future 异步
+	 * CompletableFuture
+	 */
+	@Query("select u from UserSpringDataJpa u")
+	public Set<UserSpringDataJpa> set() ;//set里面的数据是不重复的,要求对象重新hashcode(),或equals()方法.
+	
+	@Query("select u from UserSpringDataJpa u")
+	public Collection<UserSpringDataJpa> collection() ;
+	
+	@Query("select u from UserSpringDataJpa u")
+	public Iterable<UserSpringDataJpa> iterable() ;
+	
+	@Query("select u from UserSpringDataJpa u")
+	public UserSpringDataJpa[] array() ;
+	
+	@Query("select u from UserSpringDataJpa u")//失败:
+	public Stream<UserSpringDataJpa> stream() ;//失败:
+	
+	
+	Optional<UserSpringDataJpa>readById(Integer id);//防止空指针的
+	
+	
+//	37 异步 注意事项:1,异步注解2.全局需要启用异步
+	
+	@Async//1,异步注解2.全局需要启用异步
+	Future<UserSpringDataJpa>queryById(Integer id);
+	
+	@Async//1,异步注解2.全局需要启用异步
+	CompletableFuture<UserSpringDataJpa>getById(Integer id);
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

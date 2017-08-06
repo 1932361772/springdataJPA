@@ -1,17 +1,29 @@
 package cn.itmuch;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.RepositoryDefinition;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.mysql.jdbc.Buffer;
 
 import cn.itmuch.entity.UserSpringDataJpa;
 import cn.itmuch.repository.UserRepository;
@@ -27,8 +39,9 @@ import cn.itmuch.repository.UserRepositoryextendsjparepository;
 @EnableTransactionManagement
 @ComponentScan
 @EnableJpaRepositories
+@EnableAsync
 public class App {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("Hello springdataJPA...................");
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(App.class);
 		// 1,extends CrudRepository<UserSpringDataJpa, Integer>----
@@ -52,11 +65,11 @@ public class App {
 		UserRepository userRepository = context.getBean(UserRepository.class);
 
 		// 保存操作:
-		 UserSpringDataJpa user = new UserSpringDataJpa();
-		 user.setPhone("133131");
-		 user.setUsername("a");
-		 user.setStatus(1);
-		 repository.save(user);
+//		 UserSpringDataJpa user = new UserSpringDataJpa();
+//		 user.setPhone("133131");
+//		 user.setUsername("a");
+//		 user.setStatus(1);
+//		 repository.save(user);
 
 		// -------------------------------
 		// 查询
@@ -149,19 +162,64 @@ public class App {
 //		userRe.deleteByUsername("zhagnsanzh");
 		
 		
+//			springdatajpa 详解(四): 排序,分页,方法的返回值--------------------------------------------
+				
+//		userRe.queryByStatusOrderByUsername(1).forEach(System.out::println);;
+//		userRe.queryByStatusOrderByUsernameDesc(1).forEach(System.out::println);
+//		userRe.queryByStatus(1).forEach(System.out::println);
 		
+//		userRe.queryByStatus(1,new Sort(new Order(Direction.ASC,"username"))).forEach(System.out::println);
+
+//		 userRe.queryAll(1, new Sort(new Order(Direction.ASC,"username"))).forEach(System.out::println);
 		
+//			可以根据多个条件排序.根据status升序,根据username降序.传多个Order即可.
+//		 userRe.queryAll(1,new Sort(new Order(Direction.ASC,"status"),new Order(Direction.DESC,"username"))).forEach(System.out::println);
+			
+//	userRe.queryAll(new Sort(new Order(Direction.ASC,"status"),new Order(Direction.DESC,"username"))).forEach(System.out::println);
+	
+//		userRe.getByStatus(1,new PageRequest(1, 3)).forEach(System.out::println);//第一页为0.每页显示3条数据.
+
+//		Page<UserSpringDataJpa> page = userRe.getByStatus(1,new PageRequest(10, 3));
+//		System.err.println("总记录条数:"+page.getTotalElements());
+//		System.err.println("总页数:"+page.getTotalPages());
+//		page.getContent().forEach(System.out::println);
+	
 		
+//		////Page<UserSpringDataJpa> page1 = userRe.getByStatus(1, new Sort(new Order(Direction.DESC,"username")), new PageRequest(1, 3));//不支持这种
+//		Page<UserSpringDataJpa> page1 = userRe.getByStatus(1, new PageRequest(1, 3, new Sort(new Order(Direction.DESC,"username"))));//支持这种
+//		System.err.println("总记录条数:"+page1.getTotalElements());
+//		System.err.println("总页数:"+page1.getTotalPages());
+//		page1.getContent().forEach(System.out::println);
 		
 		
+//		Page<UserSpringDataJpa> page2 = userRe.findAll(new PageRequest(0, 3,new Sort(new Order(Direction.DESC,"username"))));
+//		System.err.println("总记录条数:"+page2.getTotalElements());
+//		System.err.println("总页数:"+page2.getTotalPages());
+//		page2.getContent().forEach(System.out::println);
 		
+//		详解4 21分钟.
 		
+//		Slice<UserSpringDataJpa> slice = userRe.getAll(new PageRequest(0, 3,new Sort(new Order(Direction.DESC,"username"))));
+//		slice.getContent().forEach(System.out::println);
 		
+//	userRe.set().forEach(System.out::println);
 		
+//		userRe.collection().forEach(System.out::println);
+//		userRe.iterable().forEach(System.out::println);
 		
+//		Arrays.asList(userRe.array()).forEach(System.out::println);
+	
+//		userRe.stream().forEach(System.out::println);//失败: 
 		
+//		String str = userRe.stream().map((x)->x.getId()+"").collect(Collectors.joining(","));//失败: 
+//		System.out.println(str);//失败: 
+//		
+//		System.err.println(userRe.readById(8));
 		
+//		异步需要在此处启用异步
 		
+//		System.err.println(userRe.queryById(8).get());
+		System.err.println(userRe.getById(8).get());
 		
 		
 		
@@ -195,28 +253,7 @@ public class App {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		context.close();
 		
 		
 	}

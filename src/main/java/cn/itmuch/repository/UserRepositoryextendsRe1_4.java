@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.itmuch.entity.UserSpringDataJpa;
 //Repository一般不使用这接口,因为没有任何方法.
-public interface UserRepositoryextendsRe extends Repository<UserSpringDataJpa,Integer> {
+public interface UserRepositoryextendsRe1_4 extends Repository<UserSpringDataJpa,Integer> {
 //查询结果只限一条否则报错
 	public UserSpringDataJpa findByUsername(String username) ;
 	public UserSpringDataJpa findById(Integer id) ;

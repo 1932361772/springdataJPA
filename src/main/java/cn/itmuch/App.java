@@ -28,7 +28,8 @@ import com.mysql.jdbc.Buffer;
 import cn.itmuch.entity.UserSpringDataJpa;
 import cn.itmuch.repository.UserRepository;
 import cn.itmuch.repository.UserRepositoryExtendspagingandsorting;
-import cn.itmuch.repository.UserRepositoryextendsRe;
+import cn.itmuch.repository.UserRepositoryextendsRe1_4;
+import cn.itmuch.repository.UserRepositoryextendsRe5_8;
 import cn.itmuch.repository.UserRepositoryextendscrud;
 import cn.itmuch.repository.UserRepositoryextendsjparepository;
 
@@ -48,8 +49,12 @@ public class App {
 		System.out.println("repository extendscrud接口1:" + context.getBean(UserRepositoryextendscrud.class));
 		UserRepositoryextendscrud repository = context.getBean(UserRepositoryextendscrud.class);
 		// 2,extends Repository<UserSpringDataJpa,Integer>---------
-		System.out.println("repository extendsRe接口2:" + context.getBean(UserRepositoryextendsRe.class));
-		UserRepositoryextendsRe userRe = context.getBean(UserRepositoryextendsRe.class);
+		System.out.println("repository extendsRe接口2:" + context.getBean(UserRepositoryextendsRe1_4.class));
+		UserRepositoryextendsRe1_4 userRe = context.getBean(UserRepositoryextendsRe1_4.class);
+		// 2,extends Repository<UserSpringDataJpa,Integer>---------
+		System.out.println("repository extendsRe接口2:" + context.getBean(UserRepositoryextendsRe5_8.class));
+		UserRepositoryextendsRe5_8 userRe5_ = context.getBean(UserRepositoryextendsRe5_8.class);
+		
 		// 3,extends PagingAndSortingRepository<UserSpringDataJpa, Integer>.....
 		System.out.println("repository Extendspagingandsorting接口3:"
 				+ context.getBean(UserRepositoryExtendspagingandsorting.class));
@@ -219,7 +224,80 @@ public class App {
 //		异步需要在此处启用异步
 		
 //		System.err.println(userRe.queryById(8).get());
-		System.err.println(userRe.getById(8).get());
+//		System.err.println(userRe.getById(8).get());
+		
+		
+//		springdatajpa 详解(五): 命名查询
+		
+//		System.err.println(userRe5_.byId(40));
+		
+//		System.err.println(userRe5_.byList());
+//		userRe5_.byList().forEach(System.out::println);
+		
+//		userRe5_.byusername("zhagnsanzh7").forEach(System.out::println);
+	
+//		userRe5_.byPage(1, new PageRequest(1, 5)).forEach(System.out::println);
+		
+//		userRe5_.pageByStatus(1, new PageRequest(1, 5)).forEach(System.out::println);
+		
+//		System.err.println(userRe5_.byIdd(7));
+		
+//		System.err.println(userRe5_.byIdd2(7));
+		
+//		System.err.println(userRe5_.getUsernameAndPhone(7));
+		
+//		userRe5_.bySort(new Sort(new Order(Direction.DESC,"username"))).forEach(System.out::println);	//失败.原因:不能和分页联合使用.因为,这是自定义的底层sql,jpql语句没有再参与解析.	
+//		userRe5_.bySort().forEach(System.out::println);//成功
+//		userRe5_.byPage(1, new PageRequest(1, 5)).forEach(System.out::println);//失败.原因:不能和分页联合使用.因为,这是自定义的底层sql,jpql语句没有再参与解析.	
+//		userRe5_.byPages().forEach(System.out::println);//失败
+		
+//		springdatajpa 详解(六): 本地命名查询的映射------------------------
+		
+//		userRe5_.listmapping().forEach(System.out::println);
+//		userRe5_.phonemapping().forEach(System.out::println);
+		
+//		userRe5_.phonemapping3().forEach(System.out::println);
+		
+		
+//		userRe5_.phonemapping4().forEach(System.out::println);
+/*		for (Object o : userRe5_.phonemapping4()) {
+			System.err.println(o.getClass());//显示对象
+			Object[] objects=(Object[]) o;
+//			System.err.println(objects.length);
+			for (int i = 0; i < objects.length; i++) {
+//				System.err.print(objects[i]);
+				
+			}
+			
+//			System.err.println(objects[0]+"\t"+objects[1]);
+		}*/
+		
+	
+		
+		for (Object o : userRe5_.phonemapping4()) {
+//			System.err.println(o.getClass());//显示对象
+			Object[] objects=(Object[]) o;
+//			System.err.println(objects.length);//显示对象长度.
+			System.err.println(objects[0]+"\t"+objects[1]);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

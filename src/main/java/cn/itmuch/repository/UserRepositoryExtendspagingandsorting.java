@@ -2,8 +2,8 @@ package cn.itmuch.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import cn.itmuch.entity.UserSpringDataJpa;
+import cn.itmuch.entity.UserSpring;
 
-public interface UserRepositoryExtendspagingandsorting extends PagingAndSortingRepository<UserSpringDataJpa, Integer> {
+public interface UserRepositoryExtendspagingandsorting extends PagingAndSortingRepository<UserSpring, Integer> {
 
 }

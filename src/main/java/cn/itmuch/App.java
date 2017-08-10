@@ -25,13 +25,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mysql.jdbc.Buffer;
 
-import cn.itmuch.entity.UserSpringDataJpa;
+import cn.itmuch.entity.UserSpring;
 import cn.itmuch.repository.UserRepository;
 import cn.itmuch.repository.UserRepositoryExtendspagingandsorting;
 import cn.itmuch.repository.UserRepositoryextendsRe1_4;
 import cn.itmuch.repository.UserRepositoryextendsRe5_8;
 import cn.itmuch.repository.UserRepositoryextendscrud;
 import cn.itmuch.repository.UserRepositoryextendsjparepository;
+import cn.itmuch.service.BookQueryService;
+import cn.itmuch.service.Userservice;
 
 /**
  * Hello world!
@@ -274,62 +276,72 @@ public class App {
 		
 	
 		
-		for (Object o : userRe5_.phonemapping4()) {
+/*		for (Object o : userRe5_.phonemapping4()) {
 //			System.err.println(o.getClass());//显示对象
 			Object[] objects=(Object[]) o;
 //			System.err.println(objects.length);//显示对象长度.
 			System.err.println(objects[0]+"\t"+objects[1]);
-		}
+		}*/
+		
+		
+//		springdatajpa 详解(七):使用原生的jpa api------------------------	
 		
 		
 		
+//	context.getBean(Userservice.class).addUser();
+//	context.getBean(Userservice.class).addUser2();
+
+//		context.getBean(Userservice.class).queryAll();
+//		context.getBean(Userservice.class).query();
+		
+//		context.getBean(Userservice.class).delete(1);
+//	context.getBean(Userservice.class).update(3);	
 		
 		
+//	springdatajpa 详解(八):JPA Criteria query------------------------		
+		
+//		context.getBean(BookQueryService.class).save();
+//	context.getBean(BookQueryService.class).query();	
+		
+//	context.getBean(BookQueryService.class).getById(2);
+		
+//		12分钟
+	
+//	context.getBean(BookQueryService.class).like("java");
+	
+//	context.getBean(BookQueryService.class).in();
+		
+//	context.getBean(BookQueryService.class).between();
+		
+//	context.getBean(BookQueryService.class).betweenAndIn();
+		
+//	context.getBean(BookQueryService.class).order() ;
 		
 		
+//	context.getBean(BookQueryService.class).orderbyMany();	
 		
+//	context.getBean(BookQueryService.class).orderAndThen();
 		
+//	context.getBean(BookQueryService.class).orderReturn() ;
+	context.getBean(BookQueryService.class).GroupBy();	
+	
+	
+//	springdatajpa 详解(九):springdatajpa   JPA Criteria query------------------------			
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 		context.close();
 		

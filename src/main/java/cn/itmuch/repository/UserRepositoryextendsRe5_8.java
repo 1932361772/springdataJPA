@@ -25,9 +25,9 @@ import cn.itmuch.entity.Phone;
 import cn.itmuch.entity.Phone2;
 import cn.itmuch.entity.Phone3NoEntity;
 import cn.itmuch.entity.PhoneSDJ;
-import cn.itmuch.entity.UserSpringDataJpa;
+import cn.itmuch.entity.UserSpring;
 //Repository一般不使用这接口,因为没有任何方法.
-public interface UserRepositoryextendsRe5_8 extends Repository<UserSpringDataJpa,Integer> {
+public interface UserRepositoryextendsRe5_8 extends Repository<UserSpring,Integer> {
 //	springdatajpa 详解(五): 命名查询
 	/*
 	 * 注意:
@@ -35,23 +35,23 @@ public interface UserRepositoryextendsRe5_8 extends Repository<UserSpringDataJpa
 	 * 	resultClass必须是@Entity标注的类,且查询的字段和指定的字段名称必须完全一致.
 	 */
 	@Query(name="byId")
-	public List<UserSpringDataJpa> byId(Integer id) ;	
+	public List<UserSpring> byId(Integer id) ;	
 	
 	@Query(name="byList")
-	public List<UserSpringDataJpa> byList() ;
+	public List<UserSpring> byList() ;
 	
 	@Query(name="byusername")
-	public List<UserSpringDataJpa> byusername(String username) ;
+	public List<UserSpring> byusername(String username) ;
 	
 	@Query(value="select u from UserSpringDataJpa u where u.status=?1",countName="select count(u.id) from UserSpringDataJpa u where u.status=?1")
-	public Page<UserSpringDataJpa> byPage(Integer status,Pageable pageable) ;
+	public Page<UserSpring> byPage(Integer status,Pageable pageable) ;
 	@Query(name="pageList",countName="pageCount")//和byPage一样.这里上下两个是一样的.
-	public Page<UserSpringDataJpa> pageByStatus(Integer status,Pageable pageable) ;
+	public Page<UserSpring> pageByStatus(Integer status,Pageable pageable) ;
 	
 	@Query(value="select * from userspringdatajpa u where u.id=?1",nativeQuery=true)//nativeQuery=true表明里面的语句为底层sql语句,而不是jpql语句.
-	public UserSpringDataJpa byIdd(Integer id) ;
+	public UserSpring byIdd(Integer id) ;
 	@Query(name="bySql",nativeQuery=true)//nativeQuery=true表明里面的语句为底层sql语句,而不是jpql语句.
-	public UserSpringDataJpa byIdd2(Integer id) ;
+	public UserSpring byIdd2(Integer id) ;
 	
 	@Query(name="getUsernameAndPhone",nativeQuery=true)
 	public PhoneSDJ	getUsernameAndPhone(Integer id) ;
@@ -59,7 +59,7 @@ public interface UserRepositoryextendsRe5_8 extends Repository<UserSpringDataJpa
 //	@Query(name="bySort",nativeQuery=true)//打开后启动失败
 //	public List<UserSpringDataJpa> bySort(Sort sort) ;//失败.原因:不能和分页联合使用.因为,这是自定义的底层sql,jpql语句没有再参与解析.
 	@Query(name="bySort",nativeQuery=true)
-	public List<UserSpringDataJpa> bySort() ;
+	public List<UserSpring> bySort() ;
 //	
 //	@Query(name="list",countName="count",nativeQuery=true)//打开后启动失败
 //	public Page<UserSpringDataJpa> pages(Integer status,Pageable pageable) ;//失败.原因:不能和分页联合使用.因为,这是自定义的底层sql,jpql语句没有再参与解析.

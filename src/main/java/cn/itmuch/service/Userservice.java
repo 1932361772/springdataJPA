@@ -1,7 +1,10 @@
 package cn.itmuch.service;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.itmuch.entity.UserSpring;
+import cn.itmuch.entity.UserSpringdataLock;
 
 @Service
 public class Userservice {
@@ -78,6 +82,46 @@ public class Userservice {
 		user.setUsername("zhangsan3");
 		em.merge(user);
 	}
+	
+	@Transactional
+	public void lock() throws InterruptedException {
+		UserSpringdataLock user = em.find(UserSpringdataLock.class,1,LockModeType.OPTIMISTIC);
+		System.err.println(user);
+		TimeUnit.SECONDS.sleep(10);
+		user.setUsername("adminxx");
+		em.merge(user);
+		
+	}
+	@Transactional
+	public void readlock() throws InterruptedException {
+		UserSpringdataLock user = em.find(UserSpringdataLock.class,1,LockModeType.PESSIMISTIC_FORCE_INCREMENT);
+		System.err.println(user);
+		TimeUnit.SECONDS.sleep(20);
+		user.setUsername("adminp11");
+		em.merge(user);
+		
+	}
+	@Transactional
+	public void writelock() throws InterruptedException {
+		UserSpringdataLock user = em.find(UserSpringdataLock.class,1,LockModeType.WRITE);
+		System.err.println(user);
+		TimeUnit.SECONDS.sleep(20);
+		user.setUsername("adminp11w");
+		em.merge(user);
+		System.err.println("end");
+		
+	}
+	@Transactional
+	public void writelock2() throws InterruptedException {
+		UserSpringdataLock user = em.find(UserSpringdataLock.class,1,LockModeType.READ);
+		System.err.println(user);
+		TimeUnit.SECONDS.sleep(20);
+		user.setUsername("adminp11w");
+		em.merge(user);
+		System.err.println("end");
+		
+	}
+	
 	
 	
 	

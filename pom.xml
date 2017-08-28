@@ -16,7 +16,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-
+	
 	<dependencies>
 
 	<!--spring-data-jpa 依赖 它对spring jpa做了进一步的封装.1.11.1.RELEASE版本低了报警. -->
@@ -25,7 +25,12 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.11.1.RELEASE</version>
 		</dependency>
-	
+		<!--审计依赖  -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>4.3.7.RELEASE</version>
+		</dependency>
 	
 		<!-- hibernate依赖 -->
 		<dependency>
@@ -33,6 +38,7 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.1.2.Final</version>
 		</dependency>
+		<!-- hibernate-entitymanager 实体类管理依赖 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -45,13 +51,25 @@
 			<version>5.1.40</version>
 		</dependency>
 
+		
 
-
+	<!--springc测试依赖  -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.3.7.RELEASE</version>
+			<scope>test</scope><!--表示这些依赖是在测试的环境里面才有用,不会打到包里面去中.  -->
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
-			<scope>test</scope>
+			<scope>test</scope><!--表示这些依赖是在测试的环境里面才有用,不会打到包里面去中.  -->
 		</dependency>
 	</dependencies>
+	
+	
+	
+	
+	
 </project>

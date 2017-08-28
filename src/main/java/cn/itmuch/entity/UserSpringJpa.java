@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
+@NamedQuery(name="listAlluser",query="select u from UserSpringJpa u")
 public class UserSpringJpa {
 	@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -16,7 +18,9 @@ public class UserSpringJpa {
 	private String username;
 	@Column
 	private String phone;
-	
+	public UserSpringJpa() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
